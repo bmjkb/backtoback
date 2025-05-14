@@ -1,2 +1,20 @@
 
-I am a highly skilled Python developer with expertise in building and maintaining advanced automation pipelines for efficient data processing. I possess strong machine learning and AI skills, with experience in GCP Dialogueflow and BQ Agent Builder. I excel at data analysis, extracting valuable insights and translating them into actionable solutions for clients. My experience encompasses the full project lifecycle within Agile methodologies, including development tool ownership and providing comprehensive technical support. I am a strong problem-solver with excellent communication and client-facing skills, adept at understanding and fulfilling client requirements.
+import asyncio
+import aiohttp
+import time
+
+URL = "https://example.com/api"
+
+async def fetch(session, i):
+    async with session.get(URL) as response:
+        print(f"Request {i}: {response.status}")
+        return await response.text()
+
+async def main():
+    start = time.time()
+    async with aiohttp.ClientSession() as session:
+        tasks = [fetch(session, i) for i in range(1000)]
+        await asyncio.gather(*tasks)
+    print(f"Total time: {time.time() - start:.2f} seconds")
+
+asyncio.run(main())
